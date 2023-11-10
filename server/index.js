@@ -13,11 +13,19 @@ app.use(cors())
 
 mongoose.connect("mongodb://127.0.0.1:27017/blog")
 
-app.post("/register", (req, res) => {
-    UserModel.create(req.body)
-    .then(user => res.json(user))
-    .catch(err => res.json(err))
-})
+app.post("/register", async (req, res) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const user = await UserModel.create({
+            email: req.body.email,
+            password: hashedPassword,
+            // other user data...
+        });
+        res.json(user);
+    } catch (err) {
+        res.json(err);
+    }
+});
 
 app.post("/login", (req, res) => {
     const {email, password} = req.body;
