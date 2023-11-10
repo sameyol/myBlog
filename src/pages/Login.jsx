@@ -64,7 +64,7 @@ const Login = () => {
             className="bg-blue-600 text-white w-full py-2 cursor-pointer disabled:cursor-not-allowed disabled:bg-red-200"
           />
         </form>
-        <Link to="/signup" className="">
+        <Link to="/signup" className="text-blue-500 hover:underline">
           Don't have an account? Register
         </Link>
       </div>
